@@ -3,7 +3,8 @@ package client
 import (
 	"fmt"
 	"net"
-	"strconv"
+
+	"github.com/vSterlin/tcp/utils"
 )
 
 type Client struct {
@@ -12,8 +13,7 @@ type Client struct {
 
 func (c *Client) Connect(ip string, port int) {
 
-	addr := ip + ":" + strconv.Itoa(port)
-
+	addr := utils.BuildAddress(ip, port)
 	conn, err := net.Dial("tcp", addr)
 	if err != nil {
 		fmt.Println(err)
@@ -33,9 +33,7 @@ func (c *Client) SendMessage(id int, input string) {
 	}
 
 	conn.Write([]byte(input))
-
 	// serverRes, _ := serverReader.ReadString('\n')
-
 	// fmt.Println(serverRes)
 
 }

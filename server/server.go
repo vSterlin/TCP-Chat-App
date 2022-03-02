@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"net"
-	"strconv"
 	"strings"
+
+	"github.com/vSterlin/tcp/util"
 )
 
 type Server struct {
@@ -15,7 +16,9 @@ type Server struct {
 }
 
 func (s *Server) Listen() {
-	ln, _ := net.Listen("tcp", s.IP+":"+strconv.Itoa(s.Port))
+
+	addr := util.BuildAddress(s.IP, s.Port)
+	ln, _ := net.Listen("tcp", addr)
 
 	for {
 		conn, err := ln.Accept()

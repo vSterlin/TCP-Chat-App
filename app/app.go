@@ -10,6 +10,7 @@ import (
 
 	"github.com/vSterlin/tcp/client"
 	"github.com/vSterlin/tcp/server"
+	"github.com/vSterlin/tcp/util"
 )
 
 type App struct {
@@ -25,7 +26,7 @@ func NewApp() *App {
 
 	// array to store all connections
 	netConns := &[]net.Conn{}
-	s := &server.Server{Connections: netConns, IP: getIp(), Port: port}
+	s := &server.Server{Connections: netConns, IP: util.GetIp(), Port: port}
 	c := &client.Client{Connections: netConns}
 
 	return &App{Client: c, Server: s, Connections: netConns}
@@ -92,13 +93,4 @@ func (a *App) CloseConnections() {
 	for _, conn := range *a.Connections {
 		conn.Close()
 	}
-}
-
-func getIp() string {
-	conn, _ := net.Dial("udp", "8.8.8.8:80")
-	defer conn.Close()
-
-	// get ip address without port number
-	addr := strings.Split(conn.LocalAddr().String(), ":")[0]
-	return addr
 }

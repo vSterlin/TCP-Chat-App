@@ -34,7 +34,6 @@ func NewApp() *App {
 
 func (a *App) Run() {
 	go a.Server.Listen()
-	var ListUsed int
 
 	for {
 		input := a.ReadUserInput()

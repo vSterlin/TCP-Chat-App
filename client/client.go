@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/vSterlin/tcp/utils"
+	"github.com/vSterlin/tcp/util"
 )
 
 type Client struct {
@@ -13,7 +13,7 @@ type Client struct {
 
 func (c *Client) Connect(ip string, port int) {
 
-	addr := utils.BuildAddress(ip, port)
+	addr := util.BuildAddress(ip, port)
 	conn, err := net.Dial("tcp", addr)
 	if err != nil {
 		fmt.Println(err)

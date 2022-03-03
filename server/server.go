@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"net"
-	"log"
 	"strings"
 
 	"github.com/vSterlin/tcp/util"

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"log"
 	"strconv"
 	"strings"
 
@@ -40,19 +39,19 @@ func (a *App) Run() {
 	for {
 		input := a.ReadUserInput()
 
-		splintInput := strings.Split(input, " ")
-		firstKeyword := splintInput[0]
-
+		splitInput := strings.Split(input, " ")
+		firstKeyword := splitInput[0]
+		listUsed := false
 		switch firstKeyword {
 		case "connect":
-			ip := splintInput[1]
-			port, _ := strconv.Atoi(splintInput[2])
+			ip := splitInput[1]
+			port, _ := strconv.Atoi(splitInput[2])
 			a.Client.Connect(ip, port)
 		case "send":
-			id, _ := strconv.Atoi(splintInput[1])
+			id, _ := strconv.Atoi(splitInput[1])
 
 			// adds 3rd and next split words to rebuild message
-			message := strings.Join(splintInput[2:], " ")
+			message := strings.Join(splitInput[2:], " ")
 			a.Client.SendMessage(id, message)
 		case "myip":
 			fmt.Println(a.Server.IP)
@@ -60,21 +59,22 @@ func (a *App) Run() {
 			fmt.Println(a.Server.Port)
 		case "list":
 			a.ListConnections()
-			ListUsed := 1
+			listUsed = true
 		case "terminate":
-			
-			if ListUsed == 1 {
+			if listUsed == true {
 				for i, conn := range *a.Connections {
-					if splitInput[1] == (i + 1) {
+					indexToTerminate, _ := strconv.Atoi(splitInput[1])
+					if indexToTerminate == (i + 1) {
 						conn.Close()
+						// TODO also need to remove from list
 						break
 					}
-					ListUsed := 0
+					listUsed = false
 				}
 			} else {
 				fmt.Println("Error: You did not use List first. How would you know which IP to terminate?")
 			}
-			
+
 		case "exit":
 			os.Exit(0)
 
@@ -91,7 +91,6 @@ func (a *App) ListConnections() {
 		fmt.Printf("%d: %s\n", i+1, conn.RemoteAddr().String())
 	}
 }
-
 
 func (a *App) ReadUserInput() string {
 	reader := bufio.NewReader(os.Stdin)

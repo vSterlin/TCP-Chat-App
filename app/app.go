@@ -64,7 +64,7 @@ func (a *App) Run() {
 			if listUsed == true {
 				for i, conn := range *a.Connections {
 					indexToTerminate, _ := strconv.Atoi(splitInput[1])
-					if indexToTerminate == (i + 1) {
+					if i == (indexToTerminate - 1) {
 						conn.Close()
 						// TODO also need to remove from list
 						break

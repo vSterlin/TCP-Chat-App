@@ -35,12 +35,12 @@ func NewApp() *App {
 func (a *App) Run() {
 	go a.Server.Listen()
 
+	listUsed := false
 	for {
 		input := a.ReadUserInput()
 
 		splitInput := strings.Split(input, " ")
 		firstKeyword := splitInput[0]
-		listUsed := false
 		switch firstKeyword {
 		case "connect":
 			ip := splitInput[1]

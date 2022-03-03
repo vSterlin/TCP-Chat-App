@@ -3,6 +3,7 @@ package client
 import (
 	"fmt"
 	"net"
+	"log"
 
 	"github.com/vSterlin/tcp/util"
 )

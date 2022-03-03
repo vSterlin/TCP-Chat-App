@@ -2,12 +2,16 @@ package util
 
 import (
 	"net"
+	"log"
 	"strconv"
 	"strings"
 )
 
 func GetIp() string {
-	conn, _ := net.Dial("udp", "8.8.8.8:80")
+	conn, issue := net.Dial("udp", "8.8.8.8:80")
+	if issue != nil {
+		log.Fatal("Failed to get IP: ", err)
+	}
 	defer conn.Close()
 
 	// get ip address without port number

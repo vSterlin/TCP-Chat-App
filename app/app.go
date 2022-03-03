@@ -66,6 +66,9 @@ func (a *App) Run() {
 					if i == (indexToTerminate - 1) {
 						conn.Close()
 						// TODO also need to remove from list
+						copy(*a.Connections[i:], *a.Connections[i+1:])
+						*a.Connections[len(*a.Connections) - 1] = ""
+						*a.Connections = a[ :len(*a.Connections) - 1]
 						break
 					}
 					listUsed = false

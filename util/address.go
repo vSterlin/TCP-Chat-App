@@ -10,7 +10,7 @@ import (
 func GetIp() string {
 	conn, issue := net.Dial("udp", "8.8.8.8:80")
 	if issue != nil {
-		log.Fatal(err)
+		log.Fatal("Failed to get IP: ", err)
 	}
 	defer conn.Close()
 

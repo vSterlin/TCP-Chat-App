@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"log"
 	"strconv"
 	"strings"
 
@@ -34,6 +35,7 @@ func NewApp() *App {
 
 func (a *App) Run() {
 	go a.Server.Listen()
+	var ListUsed int
 
 	for {
 		input := a.ReadUserInput()
@@ -58,8 +60,21 @@ func (a *App) Run() {
 			fmt.Println(a.Server.Port)
 		case "list":
 			a.ListConnections()
+			ListUsed := 1
 		case "terminate":
-			// TODO
+			
+			if ListUsed == 1 {
+				for i, conn := range *a.Connections {
+					if splitInput[1] == (i + 1) {
+						conn.Close()
+						break
+					}
+					ListUsed := 0
+				}
+			} else {
+				fmt.Println("Error: You did not use List first. How would you know which IP to terminate?")
+			}
+			
 		case "exit":
 			os.Exit(0)
 
@@ -76,6 +91,7 @@ func (a *App) ListConnections() {
 		fmt.Printf("%d: %s\n", i+1, conn.RemoteAddr().String())
 	}
 }
+
 
 func (a *App) ReadUserInput() string {
 	reader := bufio.NewReader(os.Stdin)

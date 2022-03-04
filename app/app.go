@@ -61,18 +61,9 @@ func (a *App) Run() {
 			listUsed = true
 		case "terminate":
 			if listUsed == true {
-				for i, conn := range *a.Connections {
-					indexToTerminate, _ := strconv.Atoi(splitInput[1])
-					if i == (indexToTerminate - 1) {
-						conn.Close()
-						// TODO also need to remove from list
-						copy(*a.Connections[i:], *a.Connections[i+1:])
-						*a.Connections[len(*a.Connections) - 1] = ""
-						*a.Connections = a[ :len(*a.Connections) - 1]
-						break
-					}
-					listUsed = false
-				}
+				indexToTerminate, _ := strconv.Atoi(splitInput[1])
+				a.TerminateConnection(indexToTerminate)
+				listUsed = false
 			} else {
 				fmt.Println("Error: You did not use List first. How would you know which IP to terminate?")
 			}
@@ -110,4 +101,11 @@ func (a *App) CloseConnections() {
 	for _, conn := range *a.Connections {
 		conn.Close()
 	}
+}
+
+func (a *App) TerminateConnection(i int) {
+	conn := (*a.Connections)[i-1]
+	conn.Close()
+	util.RemoveIndex(a.Connections, i-1)
+
 }

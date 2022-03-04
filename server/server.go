@@ -35,8 +35,10 @@ func (s *Server) handleClient(conn net.Conn) {
 	clientReader := bufio.NewReader(conn)
 	for {
 
-		clientRequestText, _ := clientReader.ReadString('\n')
-
+		clientRequestText, err := clientReader.ReadString('\n')
+		if err != nil {
+			break
+		}
 		// remove \n
 		clientRequestText = clientRequestText[:len(clientRequestText)-1]
 

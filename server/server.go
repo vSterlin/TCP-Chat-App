@@ -40,7 +40,7 @@ func (s *Server) handleClient(conn net.Conn) {
 			break
 		}
 		// remove \n
-		clientRequestText = clientRequestText[:len(clientRequestText)-1]
+		clientRequestText = util.TrimString(clientRequestText)
 
 		addr := conn.RemoteAddr().String()
 		splitAddr := strings.Split(addr, ":")

@@ -77,6 +77,7 @@ func (a *App) Run() {
 			
 				ip := splitInput[1]
 				port, _ := strconv.Atoi(splitInput[2])
+			/*
 				if ip == a.Server.IP {
 					fmt.Println("Error: Can't have self-connection.")
 					fmt.Println("")
@@ -88,6 +89,7 @@ func (a *App) Run() {
 							break
 						}
 					}
+			*/
 				a.Client.Connect(ip, port)
 				listUsed = false
 				}

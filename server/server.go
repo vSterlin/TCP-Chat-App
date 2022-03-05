@@ -22,13 +22,14 @@ func (s *Server) Listen() {
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		fmt.Println("Error: Was not able to listen for connection.")
+		return
 	}
 
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
 			fmt.Println("Error: Wasn't able to accept connection.")
-			continue
+			return
 		}
 		
 		(*s.Connections) = append((*s.Connections), conn)

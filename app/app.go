@@ -77,7 +77,7 @@ func (a *App) Run() {
 			
 				ip := splitInput[1]
 				port, _ := strconv.Atoi(splitInput[2])
-			/*
+			
 				if ip == a.Server.IP {
 					fmt.Println("Error: Can't have self-connection.")
 					fmt.Println("")
@@ -89,10 +89,10 @@ func (a *App) Run() {
 							break
 						}
 					}
-			*/
+			
 				a.Client.Connect(ip, port)
 				listUsed = false
-				//}
+				}
 			
 			case "send":
 				id, _ := strconv.Atoi(splitInput[1])
@@ -130,7 +130,7 @@ func (a *App) Run() {
 
 func (a *App) ListConnections() {
 
-	fmt.Println("id: IP address			Port No.")
+	fmt.Println("id: IP address : Port No.")
 	for i, conn := range *a.Connections {
 		// using index as id
 		fmt.Printf("%d: %s\n", i+1, conn.RemoteAddr().String())
@@ -158,5 +158,7 @@ func (a *App) TerminateConnection(i int) {
 	conn := (*a.Connections)[i-1]
 	conn.Close()
 	util.RemoveIndex(a.Connections, i-1)
+	fmt.Println("Connection has been terminated!")
+	fmt.Println("")
 
 }

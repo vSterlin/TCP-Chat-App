@@ -3,7 +3,6 @@ package server
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"net"
 	"strings"
 

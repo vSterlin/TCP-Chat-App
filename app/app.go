@@ -50,7 +50,7 @@ func (a *App) Run() {
 		
 		
 		input := a.ReadUserInput()
-		fmt.Println(input)
+		fmt.Println("")
 
 		splitInput := strings.Split(input, " ")
 		firstKeyword := splitInput[0]

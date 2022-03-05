@@ -38,6 +38,7 @@ func (a *App) Run() {
 	listUsed := false
 	for {
 		input := a.ReadUserInput()
+		fmt.Println(input)
 
 		splitInput := strings.Split(input, " ")
 		firstKeyword := splitInput[0]
@@ -90,6 +91,8 @@ func (a *App) ReadUserInput() string {
 
 	fmt.Print(">>> ")
 	str, _ := reader.ReadString('\n')
+
+	fmt.Println([]byte(str))
 
 	// to get rid of \n (removes last char)
 	str = str[0 : len(str)-1]

@@ -92,7 +92,7 @@ func (a *App) Run() {
 			*/
 				a.Client.Connect(ip, port)
 				listUsed = false
-				}
+				//}
 			
 			case "send":
 				id, _ := strconv.Atoi(splitInput[1])

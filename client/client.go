@@ -19,6 +19,8 @@ func (c *Client) Connect(ip string, port int) {
 		fmt.Println("Error: Invalid connection, try again.")
 		return
 	}
+	fmt.Println("Connection has been established!")
+	fmt.Println("")
 	(*c.Connections) = append((*c.Connections), conn)
 
 }

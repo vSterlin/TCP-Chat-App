@@ -74,9 +74,24 @@ func (a *App) Run() {
 				fmt.Println("")
 			
 			case "connect":
+			
 				ip := splitInput[1]
 				port, _ := strconv.Atoi(splitInput[2])
+				if ip == a.Server.IP {
+					fmt.Println("Error: Can't have self-connection.")
+					fmt.Println("")
+				} else {
+
+					for _, conn := range *a.Connections {
+						if conn.RemoteAddr().String() == ip {
+							fmt.Println("Error: Can't have duplicate connection.")
+							break
+						}
+					}
 				a.Client.Connect(ip, port)
+				listUsed = false
+				}
+			
 			case "send":
 				id, _ := strconv.Atoi(splitInput[1])
 
@@ -84,9 +99,13 @@ func (a *App) Run() {
 				message := strings.Join(splitInput[2:], " ")
 				a.Client.SendMessage(id, message)
 			case "myip":
+				fmt.Println("IP address:")
 				fmt.Println(a.Server.IP)
+				fmt.Println("")
 			case "myport":
+				fmt.Println("Port:")
 				fmt.Println(a.Server.Port)
+				fmt.Println("")
 			case "list":
 				a.ListConnections()
 				listUsed = true
@@ -100,14 +119,16 @@ func (a *App) Run() {
 				}
 
 			case "exit":
+				fmt.Println("Goodbye!")
+				fmt.Println("")
 				os.Exit(0)
-
 		}
 	}
 }
 
 func (a *App) ListConnections() {
 
+	fmt.Println("id: IP address			Port No.")
 	for i, conn := range *a.Connections {
 		// using index as id
 		fmt.Printf("%d: %s\n", i+1, conn.RemoteAddr().String())

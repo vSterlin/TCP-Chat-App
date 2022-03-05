@@ -120,8 +120,6 @@ func (a *App) ReadUserInput() string {
 	fmt.Print(">>> ")
 	str, _ := reader.ReadString('\n')
 
-	fmt.Println([]byte(str))
-
 	str = util.TrimString(str)
 	return str
 

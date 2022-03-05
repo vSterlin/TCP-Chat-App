@@ -94,8 +94,10 @@ func (a *App) ReadUserInput() string {
 
 	fmt.Println([]byte(str))
 
-	// to get rid of \n (removes last char)
-	str = str[0 : len(str)-1]
+	// to get rid of \r or \n (removes last char)
+	for str[len(str)-1] == '\n' || str[len(str)-1] == '\r' {
+		str = str[0 : len(str)-1]
+	}
 	return str
 
 }

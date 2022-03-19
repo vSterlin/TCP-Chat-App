@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/vSterlin/tcp/util"
+	"github.com/vSterlin/chat/util"
 )
 
 type Client struct {

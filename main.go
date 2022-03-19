@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/vSterlin/tcp/app"
+	"github.com/vSterlin/chat/app"
 )
 
 func main() {

@@ -6,7 +6,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/vSterlin/tcp/util"
+	"github.com/vSterlin/chat/util"
 )
 
 type Server struct {

@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/vSterlin/tcp/client"
-	"github.com/vSterlin/tcp/server"
-	"github.com/vSterlin/tcp/util"
+	"github.com/vSterlin/chat/client"
+	"github.com/vSterlin/chat/server"
+	"github.com/vSterlin/chat/util"
 )
 
 type App struct {

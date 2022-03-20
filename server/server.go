@@ -18,13 +18,19 @@ type Server struct {
 func (s *Server) Listen() {
 
 	addr := util.BuildAddress(s.IP, s.Port)
-	ln, _ := net.Listen("tcp", addr)
+	ln, err := net.Listen("tcp", addr)
+	if err != nil {
+		fmt.Println("Error: Was not able to listen for connection.")
+		return
+	}
 
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			continue
+			fmt.Println("Error: Wasn't able to accept connection.")
+			return
 		}
+		
 		(*s.Connections) = append((*s.Connections), conn)
 		go s.handleClient(conn)
 	}
@@ -37,6 +43,7 @@ func (s *Server) handleClient(conn net.Conn) {
 
 		clientRequestText, err := clientReader.ReadString('\n')
 		if err != nil {
+			fmt.Println("An error has occurred between client and server.")
 			break
 		}
 		// remove \n

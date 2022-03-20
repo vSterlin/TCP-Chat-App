@@ -1,7 +1,7 @@
 package util
 
 import (
-	"log"
+	"fmt"
 	"net"
 	"strconv"
 	"strings"
@@ -10,7 +10,7 @@ import (
 func GetIp() string {
 	conn, issue := net.Dial("udp", "8.8.8.8:80")
 	if issue != nil {
-		log.Fatal("Failed to get IP: ", issue)
+		fmt.Println("Failed to get IP.")
 	}
 	defer conn.Close()
 

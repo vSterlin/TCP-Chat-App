@@ -16,9 +16,11 @@ func (c *Client) Connect(ip string, port int) {
 	addr := util.BuildAddress(ip, port)
 	conn, err := net.Dial("tcp", addr)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Error: Invalid connection, try again.")
 		return
 	}
+	fmt.Println("Connection has been established!")
+	fmt.Println("")
 	(*c.Connections) = append((*c.Connections), conn)
 
 }
@@ -32,7 +34,10 @@ func (c *Client) SendMessage(id int, input string) {
 		input += "\n"
 	}
 
-	conn.Write([]byte(input))
+	_, err := conn.Write([]byte(input))
+	if err != nil {
+		fmt.Println("Error: Was not able to send message.")
+	}
 	// serverRes, _ := serverReader.ReadString('\n')
 	// fmt.Println(serverRes)
 
